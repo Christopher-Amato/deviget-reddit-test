@@ -65,6 +65,17 @@ class RedditViewController: UIViewController {
     @objc func refreshPosts() {
         loadFirstPage()
     }
+    
+    func dismissPost(postCell: RedditPostTableViewCell) {
+        guard let index = redditPostTableView.indexPath(for: postCell) else {
+            print("Invalid indexPath")
+            return
+        }
+        redditPostTableView.beginUpdates()
+        redditPostTableView.deleteRows(at: [index], with: .fade)
+        redditPostViewModels?.remove(at: index.item)
+        redditPostTableView.endUpdates()
+    }
 }
 
 //This can be in other files but RedditViewController isn't that big yet.
@@ -79,6 +90,16 @@ extension RedditViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         if let viewModel = redditPostViewModels?[indexPath.item] {
             cell.configureWith(redditPostViewModel: viewModel)
+            cell.dismissPostTappedCallback = { [weak self] (postCell) in
+                guard let unwrappedSelf = self else {
+                    print("\(RedditViewController.self) is nil")
+                    return
+                }
+                if !unwrappedSelf.redditDataViewModel.dismissedPostsIds.contains(viewModel.id) {
+                    unwrappedSelf.redditDataViewModel.dismissedPostsIds.append(viewModel.id)
+                }
+                unwrappedSelf.dismissPost(postCell: postCell)
+            }
         }
         return cell
     }

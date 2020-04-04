@@ -21,6 +21,7 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet var readDotSeparatorWidth: NSLayoutConstraint!
 
     var redditPostViewModel: RedditPostViewModel!
+    var dismissPostTappedCallback: DismissPostTappedCallback?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,7 +59,9 @@ class RedditPostTableViewCell: UITableViewCell {
     }
     
     @IBAction func dismissPostTapped() {
-        
+        if let callback = dismissPostTappedCallback {
+            callback(self)
+        }
     }
     
     func showThumbnail(_ show: Bool = true) {

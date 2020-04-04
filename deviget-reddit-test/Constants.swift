@@ -10,6 +10,7 @@ import UIKit
 
 //Blocks
 typealias ProcessedRedditPostsCallback = ([RedditPostViewModel]) -> Void
+typealias DismissPostTappedCallback = (RedditPostTableViewCell) -> Void
 
 //Numbers
 let RedditPostTableViewCellHeight = CGFloat(150)

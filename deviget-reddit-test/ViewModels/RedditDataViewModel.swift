@@ -11,6 +11,7 @@ import Foundation
 class RedditDataViewModel: NSObject {
     
     var redditData: RedditData?
+    var dismissedPostsIds = [String]()
     
     func fetchRedditData(firstPage: Bool = false, callback: ProcessedRedditPostsCallback? = nil) {
         
@@ -56,7 +57,9 @@ class RedditDataViewModel: NSObject {
         
         for children in redditDataChildren {
             let postViewModel = RedditPostViewModel(redditPost: children.data)
-            redditPostViewModels.append(postViewModel)
+            if !dismissedPostsIds.contains(postViewModel.id) {
+                redditPostViewModels.append(postViewModel)
+            }
         }
         
         return redditPostViewModels
