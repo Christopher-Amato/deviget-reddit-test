@@ -14,28 +14,29 @@ class RedditDataViewModel: NSObject {
     
     func fetchRedditData(callback: ProcessedRedditPostsCallback? = nil) {
         
-        guard let url = URL(string: RedditTopURLString) else {
-            print("Invalid URL")
+        guard var urlComponents = URLComponents(string: RedditTopURLString) else {
+            print("Invalid URL: \(RedditTopURLString)")
             return
         }
-
+        urlComponents.queryItems = [ URLQueryItem(name: RedditNextParameter, value: redditData?.after ?? "") ]        
+        guard let url = urlComponents.url else {
+            print("Invalid URL: \(urlComponents)")
+            return
+        }
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             
             if let error = error {
                 print("Response Error: \(error)")
                 return
             }
-
             guard let data = data else {
                 print("Invalid Data")
                 return
             }
-
             guard let unwrappedSelf = self else {
                 print("\(RedditDataViewModel.self) is nil")
                 return
             }
-            
             unwrappedSelf.redditData = unwrappedSelf.decodeRedditResponseData(data)?.data
             
             print("\(unwrappedSelf.redditData.debugDescription)")
