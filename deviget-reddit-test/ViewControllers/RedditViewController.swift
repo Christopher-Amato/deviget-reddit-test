@@ -15,28 +15,34 @@ class RedditViewController: UIViewController {
     @IBOutlet var firstLoadSpinner: UIActivityIndicatorView!
     
     private var redditPostViewModels: [RedditPostViewModel]?
+    private var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         redditPostTableView.separatorStyle = .none
         setupTableFooter()
+        setupPullToRefresh()
+        loadFirstPage()
         
-        redditDataViewModel.fetchRedditData { [weak self] (redditPostViewModels) in
+    }
+    
+    func loadFirstPage() {
+        firstLoadSpinner.startAnimating()
+        redditDataViewModel.fetchRedditData(firstPage: true) { [weak self] (redditPostViewModels) in
+            
             guard let unwrappedSelf = self else {
                 print("\(RedditViewController.self) is nil")
                 return
             }
-            
             unwrappedSelf.redditPostViewModels = redditPostViewModels
-            
             DispatchQueue.main.async {
                 unwrappedSelf.redditPostTableView.isHidden = false
                 unwrappedSelf.redditPostTableView.reloadData()
                 unwrappedSelf.firstLoadSpinner.stopAnimating()
+                unwrappedSelf.refreshControl.endRefreshing()
             }
         }
-        
     }
     
     func setupTableFooter() {
@@ -47,6 +53,17 @@ class RedditViewController: UIViewController {
         footerIndicator.startAnimating()
         footerView.addSubview(footerIndicator)
         redditPostTableView.tableFooterView = footerView
+    }
+    
+    func setupPullToRefresh() {
+        refreshControl.tintColor = .lightGray
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh", attributes: [.foregroundColor: UIColor.lightGray])
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: UIControl.Event.valueChanged)
+        redditPostTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refreshPosts() {
+        loadFirstPage()
     }
 }
 

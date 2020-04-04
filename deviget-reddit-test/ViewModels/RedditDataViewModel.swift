@@ -12,13 +12,13 @@ class RedditDataViewModel: NSObject {
     
     var redditData: RedditData?
     
-    func fetchRedditData(callback: ProcessedRedditPostsCallback? = nil) {
+    func fetchRedditData(firstPage: Bool = false, callback: ProcessedRedditPostsCallback? = nil) {
         
         guard var urlComponents = URLComponents(string: RedditTopURLString) else {
             print("Invalid URL: \(RedditTopURLString)")
             return
         }
-        urlComponents.queryItems = [ URLQueryItem(name: RedditNextParameter, value: redditData?.after ?? "") ]        
+        urlComponents.queryItems = [ URLQueryItem(name: RedditNextParameter, value: firstPage ? "" : redditData?.after) ]
         guard let url = urlComponents.url else {
             print("Invalid URL: \(urlComponents)")
             return
@@ -37,10 +37,7 @@ class RedditDataViewModel: NSObject {
                 print("\(RedditDataViewModel.self) is nil")
                 return
             }
-            unwrappedSelf.redditData = unwrappedSelf.decodeRedditResponseData(data)?.data
-            
-            print("\(unwrappedSelf.redditData.debugDescription)")
-            
+            unwrappedSelf.redditData = unwrappedSelf.decodeRedditResponseData(data)?.data            
             if let cb = callback {
                 cb(unwrappedSelf.getRedditPostViewModels())
             }
