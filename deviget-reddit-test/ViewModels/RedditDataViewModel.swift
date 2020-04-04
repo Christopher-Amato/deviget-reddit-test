@@ -12,7 +12,7 @@ class RedditDataViewModel: NSObject {
     
     var redditData: RedditData?
     
-    func fetchRedditData() {
+    func fetchRedditData(callback: (() -> Void)? = nil) {
         
         guard let url = URL(string: RedditTopURLString) else {
             print("Invalid URL")
@@ -39,6 +39,10 @@ class RedditDataViewModel: NSObject {
             unwrappedSelf.redditData = unwrappedSelf.decodeRedditResponseData(data)?.data
             
             print("\(unwrappedSelf.redditData.debugDescription)")
+            
+            if let cb = callback {
+                cb()
+            }
             
         }.resume()
     }
