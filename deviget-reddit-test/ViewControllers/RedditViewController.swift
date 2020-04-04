@@ -42,6 +42,37 @@ class RedditViewController: UIViewController {
                 unwrappedSelf.firstLoadSpinner.stopAnimating()
                 unwrappedSelf.refreshControl.endRefreshing()
             }
+            if redditPostViewModels.isEmpty {
+                unwrappedSelf.loadNextPage()
+                return
+            }
+        }
+    }
+    
+    func loadNextPage() {
+        redditDataViewModel.fetchRedditData() { [weak self] (redditPostViewModels) in
+            guard let unwrappedSelf = self else {
+                print("\(RedditViewController.self) is nil")
+                return
+            }
+            if redditPostViewModels.isEmpty {
+                unwrappedSelf.loadNextPage()
+                return
+            }
+            DispatchQueue.main.async {
+                if unwrappedSelf.redditPostViewModels == nil {
+                    print("\([RedditPostViewModel].self) is nil")
+                    return
+                }
+                unwrappedSelf.redditPostTableView.beginUpdates()
+                var rows = [IndexPath]()
+                for i in 0..<redditPostViewModels.count {
+                    rows.append(IndexPath(row: unwrappedSelf.redditPostViewModels!.count + i, section: 0))
+                }
+                unwrappedSelf.redditPostViewModels! += redditPostViewModels
+                unwrappedSelf.redditPostTableView.insertRows(at: rows, with: .fade)
+                unwrappedSelf.redditPostTableView.endUpdates()
+            }
         }
     }
     
@@ -75,6 +106,25 @@ class RedditViewController: UIViewController {
         redditPostTableView.deleteRows(at: [index], with: .fade)
         redditPostViewModels?.remove(at: index.item)
         redditPostTableView.endUpdates()
+    }
+    
+    @IBAction func dismissAllPostsTapped() {
+        guard let viewModels = redditPostViewModels else {
+            print("\([RedditDataViewModel].self) is nil")
+            return
+        }
+        for post in viewModels {
+            if !redditDataViewModel.dismissedPostsIds.contains(post.id) {
+                redditDataViewModel.dismissedPostsIds.append(post.id)
+            }
+        }
+        redditPostTableView.beginUpdates()
+        redditPostViewModels?.removeAll()
+        if let allRows = redditPostTableView.indexPathsForRows(in: CGRect(origin: .zero, size: redditPostTableView.contentSize)) {
+            redditPostTableView.deleteRows(at: allRows, with: .fade)
+        }
+        redditPostTableView.endUpdates()
+        loadNextPage()
     }
 }
 
@@ -113,26 +163,7 @@ extension RedditViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.item >= (redditPostViewModels?.count ?? 0) - 1 {
-            redditDataViewModel.fetchRedditData() { [weak self] (redditPostViewModels) in
-                guard let unwrappedSelf = self else {
-                    print("\(RedditViewController.self) is nil")
-                    return
-                }
-                DispatchQueue.main.async {
-                    if unwrappedSelf.redditPostViewModels == nil {
-                        print("\([RedditPostViewModel].self) is nil")
-                        return
-                    }
-                    unwrappedSelf.redditPostTableView.beginUpdates()
-                    var rows = [IndexPath]()
-                    for i in 0..<redditPostViewModels.count {
-                        rows.append(IndexPath(row: unwrappedSelf.redditPostViewModels!.count + i, section: 0))
-                    }
-                    unwrappedSelf.redditPostViewModels! += redditPostViewModels
-                    unwrappedSelf.redditPostTableView.insertRows(at: rows, with: .fade)
-                    unwrappedSelf.redditPostTableView.endUpdates()
-                }
-            }
+            loadNextPage()
         }
     }
 }

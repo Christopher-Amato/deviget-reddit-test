@@ -140,13 +140,34 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Shq-8S-Fly"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZz-Md-oIc">
+                                <rect key="frame" x="15" y="812" width="384" height="50"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="877-Oe-DBb"/>
+                                </constraints>
+                                <state key="normal" title="Dismiss All Posts">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="dismissAllPostsTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="NgY-Vo-GGO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TZz-Md-oIc" secondAttribute="trailing" constant="15" id="1gI-OP-Tm0"/>
                             <constraint firstItem="qLS-8F-x8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="57r-9F-4n2"/>
                             <constraint firstItem="IHI-QW-P1l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NJI-bF-2x3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qLS-8F-x8S" secondAttribute="trailing" id="Q6Z-Bf-Vhv"/>
+                            <constraint firstItem="TZz-Md-oIc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="QNn-ap-MAE"/>
                             <constraint firstAttribute="top" secondItem="qLS-8F-x8S" secondAttribute="top" id="V0h-oY-F2a"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TZz-Md-oIc" secondAttribute="bottom" id="bnd-4F-b2D"/>
                             <constraint firstItem="IHI-QW-P1l" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="eBY-xa-Fba"/>
                             <constraint firstItem="qLS-8F-x8S" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="vyC-Kd-fDa"/>
                         </constraints>
