@@ -12,9 +12,9 @@ class RedditDataViewModel: NSObject {
     
     var redditData: RedditData?
     var dismissedPostsIds = [String]()
+    var readPostsIds = [String]()
     
     func fetchRedditData(firstPage: Bool = false, callback: ProcessedRedditPostsCallback? = nil) {
-        
         guard var urlComponents = URLComponents(string: RedditTopURLString) else {
             print("Invalid URL: \(RedditTopURLString)")
             return
@@ -25,7 +25,6 @@ class RedditDataViewModel: NSObject {
             return
         }
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            
             if let error = error {
                 print("Response Error: \(error)")
                 return
@@ -42,26 +41,22 @@ class RedditDataViewModel: NSObject {
             if let cb = callback {
                 cb(unwrappedSelf.getRedditPostViewModels())
             }
-            
         }.resume()
     }
     
     private func getRedditPostViewModels() -> [RedditPostViewModel] {
-        
         guard let redditDataChildren = redditData?.children else {
             print("\(RedditData.self) is nil")
             return [RedditPostViewModel]()
         }
-        
         var redditPostViewModels = [RedditPostViewModel]()
-        
         for children in redditDataChildren {
             let postViewModel = RedditPostViewModel(redditPost: children.data)
+            postViewModel.postRead = readPostsIds.contains(postViewModel.id)
             if !dismissedPostsIds.contains(postViewModel.id) {
                 redditPostViewModels.append(postViewModel)
             }
         }
-        
         return redditPostViewModels
     }
 

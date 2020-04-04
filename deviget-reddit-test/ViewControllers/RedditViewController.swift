@@ -16,6 +16,7 @@ class RedditViewController: UIViewController {
     
     private var redditPostViewModels: [RedditPostViewModel]?
     private var refreshControl = UIRefreshControl()
+    private var selectedPostIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,6 @@ class RedditViewController: UIViewController {
     func loadFirstPage() {
         firstLoadSpinner.startAnimating()
         redditDataViewModel.fetchRedditData(firstPage: true) { [weak self] (redditPostViewModels) in
-            
             guard let unwrappedSelf = self else {
                 print("\(RedditViewController.self) is nil")
                 return
@@ -88,7 +88,7 @@ class RedditViewController: UIViewController {
     
     func setupPullToRefresh() {
         refreshControl.tintColor = .lightGray
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Refresh", attributes: [.foregroundColor: UIColor.lightGray])
+        refreshControl.attributedTitle = NSAttributedString(string: PullToRefreshString, attributes: [.foregroundColor: UIColor.lightGray])
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: UIControl.Event.valueChanged)
         redditPostTableView.addSubview(refreshControl)
     }
@@ -126,6 +126,11 @@ class RedditViewController: UIViewController {
         redditPostTableView.endUpdates()
         loadNextPage()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if selectedPostIndex >= 0 {
+        }
+    }
 }
 
 //This can be in other files but RedditViewController isn't that big yet.
@@ -160,7 +165,21 @@ extension RedditViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return RedditPostTableViewCellHeight
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let postViewModel = redditPostViewModels?[indexPath.item] else {
+            print("\([RedditPostViewModel].self) is nil")
+            return
+        }
+        selectedPostIndex = indexPath.item
+        if redditDataViewModel.readPostsIds.contains(postViewModel.id) == false {
+            redditDataViewModel.readPostsIds.append(postViewModel.id)
+            postViewModel.postRead = true
+        }
+        (tableView.cellForRow(at: indexPath) as? RedditPostTableViewCell)?.hideReadDot()
+        performSegue(withIdentifier: ToRedditPostSegueIdentifier, sender: self)
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.item >= (redditPostViewModels?.count ?? 0) - 1 {
             loadNextPage()

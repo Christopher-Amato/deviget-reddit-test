@@ -29,13 +29,14 @@ class RedditPostTableViewCell: UITableViewCell {
     
     func configureWith(redditPostViewModel: RedditPostViewModel) {
         self.redditPostViewModel = redditPostViewModel
+        hideReadDot(redditPostViewModel.postRead)
         postAuthor.text = redditPostViewModel.author
         postDate.text = redditPostViewModel.dateText
         thumbnailImage.image = UIImage()
         if let url = redditPostViewModel.thumbnailURL {
             URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 guard let unwrappedSelf = self else {
-                    print("\(RedditDataViewModel.self) is nil")
+                    print("\(RedditPostTableViewCell.self) is nil")
                     return
                 }
                 if let error = error {
@@ -68,6 +69,19 @@ class RedditPostTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             self.thumbnailWidth.constant = show ? 64 : 0
             self.thumbnailSeparatorWidth.constant = show ? 10 : 0
+        }
+    }
+    
+    func hideReadDot(_ hide: Bool = true) {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            guard let unwrappedSelf = self else {
+                print("\(RedditDataViewModel.self) is nil")
+                return
+            }
+            unwrappedSelf.redditPostViewModel.postRead = hide
+            unwrappedSelf.readDotWidth.constant = hide ? 0 : 10
+            unwrappedSelf.readDotSeparatorWidth.constant = hide ? 0 : 10
+            unwrappedSelf.layoutIfNeeded()
         }
     }
 }
