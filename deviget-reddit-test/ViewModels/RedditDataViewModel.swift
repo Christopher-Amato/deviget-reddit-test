@@ -12,7 +12,7 @@ class RedditDataViewModel: NSObject {
     
     var redditData: RedditData?
     
-    func fetchRedditData(callback: (() -> Void)? = nil) {
+    func fetchRedditData(callback: ProcessedRedditPostsCallback? = nil) {
         
         guard let url = URL(string: RedditTopURLString) else {
             print("Invalid URL")
@@ -41,10 +41,27 @@ class RedditDataViewModel: NSObject {
             print("\(unwrappedSelf.redditData.debugDescription)")
             
             if let cb = callback {
-                cb()
+                cb(unwrappedSelf.getRedditPostViewModels())
             }
             
         }.resume()
+    }
+    
+    private func getRedditPostViewModels() -> [RedditPostViewModel] {
+        
+        guard let redditDataChildren = redditData?.children else {
+            print("\(RedditData.self) is nil")
+            return [RedditPostViewModel]()
+        }
+        
+        var redditPostViewModels = [RedditPostViewModel]()
+        
+        for children in redditDataChildren {
+            let postViewModel = RedditPostViewModel(redditPost: children.data)
+            redditPostViewModels.append(postViewModel)
+        }
+        
+        return redditPostViewModels
     }
 
     private func decodeRedditResponseData(_ redditResponseData: Data) -> RedditResponse? {
