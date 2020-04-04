@@ -16,3 +16,4 @@ let RedditPostTableViewCellHeight = CGFloat(150)
 
 //Strings
 let RedditTopURLString = "https://reddit.com/top.json"
+let RedditPostTableViewCellIdentifier = "RedditPostTableViewCellID"

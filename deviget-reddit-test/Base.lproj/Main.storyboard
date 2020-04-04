@@ -127,10 +127,10 @@
                                             <outlet property="postAuthor" destination="ruU-P7-LON" id="eCD-vr-48i"/>
                                             <outlet property="postDate" destination="C8m-aT-wKV" id="XJb-ji-Nwd"/>
                                             <outlet property="postTitle" destination="bKH-dJ-ucH" id="xqH-kH-iTK"/>
-                                            <outlet property="postTitleSeparatorWidth" destination="ydH-ZP-ZHe" id="cPU-FD-xDg"/>
                                             <outlet property="readDotSeparatorWidth" destination="jEh-3a-rDd" id="XYY-Fk-3Ec"/>
                                             <outlet property="readDotWidth" destination="kIu-NK-6MG" id="acw-gD-4LR"/>
-                                            <outlet property="thumbnailImage" destination="oC6-eY-dP7" id="9oh-7x-aRJ"/>
+                                            <outlet property="thumbnailImage" destination="oC6-eY-dP7" id="TZy-GE-5xM"/>
+                                            <outlet property="thumbnailSeparatorWidth" destination="ydH-ZP-ZHe" id="uio-dm-DYd"/>
                                             <outlet property="thumbnailWidth" destination="8dd-6f-DJN" id="wxE-aI-gBV"/>
                                         </connections>
                                     </tableViewCell>
@@ -162,7 +162,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <customObject id="ISQ-WE-aOu" customClass="RedditDataViewModel" customModule="Reddit_Test" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="-351" y="141"/>
+            <point key="canvasLocation" x="-352.17391304347831" y="140.625"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="GBU-am-lvy">
@@ -216,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvR-aO-MX0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="467" y="141"/>
+            <point key="canvasLocation" x="466.66666666666669" y="140.625"/>
         </scene>
     </scenes>
     <resources>

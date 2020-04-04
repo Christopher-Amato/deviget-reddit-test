@@ -47,7 +47,12 @@ extension RedditViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: RedditPostTableViewCellIdentifier, for: indexPath) as! RedditPostTableViewCell
+        cell.selectionStyle = .none
+        if let viewModel = redditPostViewModels?[indexPath.item] {
+            cell.configureWith(redditPostViewModel: viewModel)
+        }
+        return cell
     }
     
 }
