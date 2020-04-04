@@ -23,7 +23,7 @@ class RedditViewController: UIViewController {
             print("Invalid URL")
             return
         }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             
             if let error = error {
                 print("Response Error: \(error)")
@@ -34,9 +34,25 @@ class RedditViewController: UIViewController {
                 print("Invalid Data")
                 return
             }
-            print("Data: \(data)")
+            
+            guard let unwrappedSelf = self else {
+                print("\(RedditViewController.self) is nil")
+                return
+            }
+            print("JSON: \(unwrappedSelf.decodeRedditResponseData(data))")
             
         }.resume()
+    }
+    
+    private func decodeRedditResponseData(_ redditResponseData: Data) -> RedditResponse? {
+        do {
+            let redditResponse = try JSONDecoder().decode(RedditResponse.self, from: redditResponseData)
+            return redditResponse
+        } catch let error {
+            print("JSONDecoder Error: \(error)")
+            return nil
+        }
+        
     }
     
 }
