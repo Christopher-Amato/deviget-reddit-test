@@ -77,7 +77,7 @@ class RedditViewController: UIViewController {
     }
     
     func setupTableFooter() {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 150))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
         let footerIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 150))
         footerIndicator.style = .large
         footerIndicator.color = .lightGray
@@ -129,6 +129,8 @@ class RedditViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if selectedPostIndex >= 0 {
+            let redditPostViewController = segue.destination as! RedditPostViewController
+            redditPostViewController.redditPostViewModel = redditPostViewModels?[selectedPostIndex]
         }
     }
 }

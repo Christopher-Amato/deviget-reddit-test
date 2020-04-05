@@ -67,7 +67,6 @@ class RedditDataViewModel: NSObject {
         } catch let error {
             print("JSONDecoder Error: \(error)")
             return nil
-        }
-        
+        }        
     }
 }

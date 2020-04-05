@@ -185,10 +185,10 @@
             </objects>
             <point key="canvasLocation" x="-352.17391304347831" y="140.625"/>
         </scene>
-        <!--View Controller-->
+        <!--Reddit Post View Controller-->
         <scene sceneID="GBU-am-lvy">
             <objects>
-                <viewController id="B4j-lp-wHn" sceneMemberID="viewController">
+                <viewController id="B4j-lp-wHn" customClass="RedditPostViewController" customModule="Reddit_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1d5-p5-cUI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,15 +203,18 @@
                                 <state key="normal" image="x.circle" catalog="system">
                                     <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="closePost" destination="B4j-lp-wHn" eventType="touchUpInside" id="i39-Zx-sUx"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTd-n2-qpd">
-                                <rect key="frame" x="15" y="65" width="384" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTd-n2-qpd">
+                                <rect key="frame" x="15" y="65" width="384" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-eh-QJQ">
-                                <rect key="frame" x="0.0" y="109" width="414" height="733"/>
+                                <rect key="frame" x="0.0" y="85" width="414" height="757"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -234,6 +237,10 @@
                         <viewLayoutGuide key="safeArea" id="Eql-eg-nTH"/>
                     </view>
                     <navigationItem key="navigationItem" id="OKo-05-nAI"/>
+                    <connections>
+                        <outlet property="postTitle" destination="nTd-n2-qpd" id="pZv-aE-TMD"/>
+                        <outlet property="webView" destination="8Lg-eh-QJQ" id="6JF-k6-Wt2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvR-aO-MX0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
