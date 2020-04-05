@@ -12,9 +12,6 @@ import UIKit
 typealias ProcessedRedditPostsCallback = ([RedditPostViewModel]) -> Void
 typealias DismissPostTappedCallback = (RedditPostTableViewCell) -> Void
 
-//Numbers
-let RedditPostTableViewCellHeight = CGFloat(150)
-
 //Strings
 let RedditTopURLString = "https://reddit.com/top.json"
 let RedditNextParameter = "after"

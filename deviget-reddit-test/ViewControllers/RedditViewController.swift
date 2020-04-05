@@ -170,10 +170,6 @@ extension RedditViewController: UITableViewDataSource {
 
 extension RedditViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return RedditPostTableViewCellHeight
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let postViewModel = redditPostViewModels?[indexPath.item] else {
             print("\([RedditPostViewModel].self) is nil")
