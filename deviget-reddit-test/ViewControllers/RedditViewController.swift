@@ -7,16 +7,23 @@
 //
 
 import UIKit
+import WebKit
 
 class RedditViewController: UIViewController {
     
     @IBOutlet var redditDataViewModel: RedditDataViewModel!
     @IBOutlet var redditPostTableView: UITableView!
     @IBOutlet var firstLoadSpinner: UIActivityIndicatorView!
+    @IBOutlet var ipadTitle: UILabel!
+    @IBOutlet var ipadWebView: WKWebView!
     
     private var redditPostViewModels: [RedditPostViewModel]?
     private var refreshControl = UIRefreshControl()
     private var selectedPostIndex = 0
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +32,6 @@ class RedditViewController: UIViewController {
         setupTableFooter()
         setupPullToRefresh()
         loadFirstPage()
-        
     }
     
     func loadFirstPage() {
@@ -77,8 +83,8 @@ class RedditViewController: UIViewController {
     }
     
     func setupTableFooter() {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
-        let footerIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 150))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: redditPostTableView.frame.width, height: 200))
+        let footerIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: redditPostTableView.frame.width, height: 150))
         footerIndicator.style = .large
         footerIndicator.color = .lightGray
         footerIndicator.startAnimating()
@@ -179,7 +185,14 @@ extension RedditViewController: UITableViewDelegate {
             postViewModel.postRead = true
         }
         (tableView.cellForRow(at: indexPath) as? RedditPostTableViewCell)?.hideReadDot()
-        performSegue(withIdentifier: ToRedditPostSegueIdentifier, sender: self)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            performSegue(withIdentifier: ToRedditPostSegueIdentifier, sender: self)
+        } else {
+            ipadTitle.text = postViewModel.title
+            if let url = postViewModel.url {
+                ipadWebView.load(URLRequest(url: url))
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="IHI-QW-P1l">
-                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                                 <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qLS-8F-x8S">
@@ -163,12 +163,12 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TZz-Md-oIc" secondAttribute="trailing" constant="15" id="1gI-OP-Tm0"/>
                             <constraint firstItem="qLS-8F-x8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="57r-9F-4n2"/>
-                            <constraint firstItem="IHI-QW-P1l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NJI-bF-2x3"/>
+                            <constraint firstItem="IHI-QW-P1l" firstAttribute="centerY" secondItem="qLS-8F-x8S" secondAttribute="centerY" id="Edv-i8-eTi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qLS-8F-x8S" secondAttribute="trailing" id="Q6Z-Bf-Vhv"/>
                             <constraint firstItem="TZz-Md-oIc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="QNn-ap-MAE"/>
+                            <constraint firstItem="IHI-QW-P1l" firstAttribute="centerX" secondItem="qLS-8F-x8S" secondAttribute="centerX" id="R3L-mx-2L4"/>
                             <constraint firstAttribute="top" secondItem="qLS-8F-x8S" secondAttribute="top" id="V0h-oY-F2a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TZz-Md-oIc" secondAttribute="bottom" id="bnd-4F-b2D"/>
-                            <constraint firstItem="IHI-QW-P1l" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="eBY-xa-Fba"/>
                             <constraint firstItem="qLS-8F-x8S" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="vyC-Kd-fDa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

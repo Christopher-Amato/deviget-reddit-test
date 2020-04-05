@@ -20,6 +20,7 @@
 		8C2B374624392035000480BE /* RedditPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B374524392035000480BE /* RedditPostViewModel.swift */; };
 		8C2B374924392ED4000480BE /* RedditPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B374824392ED4000480BE /* RedditPostTableViewCell.swift */; };
 		8C2B374B24395519000480BE /* RedditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2B374A24395519000480BE /* RedditPostViewController.swift */; };
+		8C2B375024395847000480BE /* Main_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2B374E24395847000480BE /* Main_ipad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		8C2B374524392035000480BE /* RedditPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewModel.swift; sourceTree = "<group>"; };
 		8C2B374824392ED4000480BE /* RedditPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostTableViewCell.swift; sourceTree = "<group>"; };
 		8C2B374A24395519000480BE /* RedditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewController.swift; sourceTree = "<group>"; };
+		8C2B374F24395847000480BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_ipad.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				8C2B3724243916DD000480BE /* AppDelegate.swift */,
 				8C2B3726243916DD000480BE /* SceneDelegate.swift */,
 				8C2B372A243916DD000480BE /* Main.storyboard */,
+				8C2B374E24395847000480BE /* Main_ipad.storyboard */,
 				8C2B372D243916DD000480BE /* Assets.xcassets */,
 				8C2B372F243916DD000480BE /* LaunchScreen.storyboard */,
 				8C2B3732243916DD000480BE /* Info.plist */,
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C2B3731243916DD000480BE /* LaunchScreen.storyboard in Resources */,
+				8C2B375024395847000480BE /* Main_ipad.storyboard in Resources */,
 				8C2B372E243916DD000480BE /* Assets.xcassets in Resources */,
 				8C2B372C243916DD000480BE /* Main.storyboard in Resources */,
 			);
@@ -221,6 +225,14 @@
 				8C2B3730243916DD000480BE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		8C2B374E24395847000480BE /* Main_ipad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C2B374F24395847000480BE /* Base */,
+			);
+			name = Main_ipad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
